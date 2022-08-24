@@ -1,0 +1,69 @@
+
+
+/**
+ * CATEGORIES
+ */
+
+#catListContainer {
+  float: right;
+  margin-right: 24px;
+  width: 24%;
+}
+
+#catListContainer ul {
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  padding: 18px;
+}
+
+#catListContainer ul li {
+  display: flex;
+  justify-content: space-between;
+}
+
+#delBtn {
+cursor: pointer;
+}
+
+.delBtn {
+  cursor: pointer
+}
+
+.delBtn:hover {
+  color: red
+}
+
+/**
+ * TILES
+ */
+
+ .tileCard {
+  display: flex;
+  flex-direction: column;
+  min-width: 104px  ;
+  border: 1px solid;
+  padding: 48px;
+  /* margin: 100px; */
+  justify-content: center;
+  align-items: center;
+  padding-top: unset;
+  background-color: ghostwhite;
+  margin-right: 24px;
+}
+
+.tile-img {
+  max-width: 201px;
+}
+
+#tilesContainer {
+  display: flex;
+}
+
+dialog {
+  border: unset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+}
+
+dialog::backdrop {
+  backdrop-filter: blur(2px);
+}
