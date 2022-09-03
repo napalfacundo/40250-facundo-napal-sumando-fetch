@@ -1,17 +1,17 @@
 /**
  * TODO:
- * Save tileList in local storage
+ * Save tileList in local storage ✅
  * Improve styles on card and menus
  * Go further on tiles CRUD
  * Improve categories view
  * 
  * 08/16 
- * Migrate delete cat method to delBtn category trash button
+ * Migrate delete cat method to delBtn category trash button ✅
  * validate duplicated inputs on create modes (tiles and categories)
  * Create an interesting designed element when on hover show Tiles props // https://atomiks.github.io/tippyjs/v6/html-content/
  * 
  * 08/19
- * Give life to destroy button on categories
+ * Give action over trash button on categories ✅
  * Manage to remove tile form tilesContainer when deleted
  * Find a better way to render tiles
  * Create feature to group tiles by category
@@ -43,7 +43,24 @@ const Card = (props) => {
 
     tileLike ? tileLike = `<span>👍</span>` : tileLike = `<span>👎</span>`
 
-    return `<p>${tileName} <a href="${tileUrl}" target="_blank">${tileUrl}</a> <strong>Category:</strong></p><p> ${tileCategory} ${tileLike} ${tileDate}</p>`
+    return `
+    <div class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <img src="${tileImg}" alt="Avatar" ">
+            </div>
+            <div class="flip-card-back">
+                <h1>${tileName}</h1>
+                <a href="${tileUrl}" target="_blank">${tileUrl}</a>
+                <p> <strong>Category: </strong>${tileCategory}</p>
+                <p>${tileLike}</p>
+                <p>${tileDate}</p>
+            </div>
+        </div>
+    </div>
+    `
+
+    // return `<p>${tileName} <a href="${tileUrl}" target="_blank">${tileUrl}</a> <strong>Category:</strong></p><p> ${tileCategory} ${tileLike} ${tileDate}</p>`
 
 //     return `
 //     <div class="tileCard">
@@ -98,7 +115,11 @@ catListContainer.innerHTML = "Categories: "
 
 let catListContainerList = document.createElement("ul");
     catList.forEach(cat => {
-        catListContainerList.innerHTML += `<li>${cat}<i class="glyphicon glyphicon-trash delBtn" id="delBtn-${cat}"></i></li><hr>`
+        catListContainerList.innerHTML += `
+            <li class="delBtn-${cat}">
+                ${cat}
+            <i onclick="trashBtn()" class="glyphicon glyphicon-trash delBtn" id="delBtn-${cat}"></i>
+            </li>`
     })
 catListContainer.appendChild(catListContainerList);
 root.appendChild(catListContainer);
@@ -161,11 +182,31 @@ createCatBtn.addEventListener("click", () => {
         let createCatInput = document.getElementById("createCatInput").value;
         catList.push(createCatInput);
         localStorage.setItem('Categories', JSON.stringify(catList))
-        catListContainerList.innerHTML += `<li>${createCatInput}<i class="glyphicon glyphicon-trash" id="delBtn-${createCatInput}"></i></li><hr>`;
+        catListContainerList.innerHTML += `
+            <li class="delBtn-${createCatInput}">
+                ${createCatInput}
+            <i onclick="trashBtn()" class="glyphicon glyphicon-trash delBtn" id="delBtn-${createCatInput}"></i>
+            </li>`;
         createCatDialog.close();
         root.removeChild(createCatDialog);
     });
 });
+
+function trashBtn(e) {
+    catList = JSON.parse(localStorage.getItem('Categories'))
+    let delIdCat = event.target.id;
+    let delClassCat = document.querySelector(`.${delIdCat}`)
+    console.log(delClassCat.innerText);
+    let delClassCatInner = delClassCat.innerText
+    removeItemFromArr(catList, delClassCatInner)
+    console.log(catList);
+    localStorage.setItem('Categories', JSON.stringify(catList))
+    
+    catListContainerList.removeChild(delClassCat)
+    console.log(delClassCat);
+    
+    // removeItemFromArr(catList, cat);
+}
 
 /**
  * DELETE CATEGORY
