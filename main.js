@@ -59,23 +59,6 @@ const Card = (props) => {
         </div>
     </div>
     `
-
-    // return `<p>${tileName} <a href="${tileUrl}" target="_blank">${tileUrl}</a> <strong>Category:</strong></p><p> ${tileCategory} ${tileLike} ${tileDate}</p>`
-
-//     return `
-//     <div class="tileCard">
-//       <img class="tile-img" src="${tileImg}">
-//       <h1 class="title">${tileName}</h1>
-//       <p class="tile-url"><a href="${tileUrl}" target="_blank">${tileUrl}</a></p>
-//       <p><strong>Category:</strong></p><p> ${tileCategory}</p>
-//       <p>${tileLike}</p>
-//       <p><strong>Creation date:</strong></p><p> ${tileDate}</p>
-      
-
-//       <button class="actionBtn">
-//         <a href="${tileUrl}" target="_blank">Go</a>
-//       </button>
-//   </div>`;
 };
 
 /**
@@ -178,7 +161,6 @@ createCatBtn.addEventListener("click", () => {
 
     createCatBtnDialog.addEventListener("click", () => {
         catList = JSON.parse(localStorage.getItem('Categories')) || []
-        console.log(catList)
         let createCatInput = document.getElementById("createCatInput").value;
         catList.push(createCatInput);
         localStorage.setItem('Categories', JSON.stringify(catList))
@@ -192,35 +174,26 @@ createCatBtn.addEventListener("click", () => {
     });
 });
 
+/**
+ * 
+ * DELETE TRASH BTN
+ */
+
 function trashBtn(e) {
     catList = JSON.parse(localStorage.getItem('Categories'))
     let delIdCat = event.target.id;
     let delClassCat = document.querySelector(`.${delIdCat}`)
-    console.log(delClassCat.innerText);
     let delClassCatInner = delClassCat.innerText
     removeItemFromArr(catList, delClassCatInner)
-    console.log(catList);
     localStorage.setItem('Categories', JSON.stringify(catList))
     
     catListContainerList.removeChild(delClassCat)
-    console.log(delClassCat);
     
-    // removeItemFromArr(catList, cat);
 }
 
 /**
  * DELETE CATEGORY
  */
-
-// let delBtnList = document.querySelectorAll('[id^="delBtn"]').forEach( btn => {
-//     btn.addEventListener('click', () => {
-//         deleteCat()
-//     })
-// })  
-
-// function deleteCat() {
-
-// }
 
 deleteCatBtn.addEventListener("click", () => {
   catList = JSON.parse(localStorage.getItem('Categories'))
@@ -264,7 +237,6 @@ deleteCatBtn.addEventListener("click", () => {
 
 showCatBtn.addEventListener("click", () => {
     catList = JSON.parse(localStorage.getItem('Categories'))
-    console.log(catList)
     renderEngine(root)
         .to("dialog", "id", "showCatDialog")
         .render(
