@@ -149,3 +149,34 @@ dialog::backdrop {
   margin: 40px;
   width: 70%;
 }
+
+/* USERS */
+.solid-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px;
+}
+
+.userAlertAdvice {
+  width: 600px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  border: 1px solid ghostwhite;
+  background-color: #000;
+  color: ghostwhite;
+  box-shadow: rgb(0 0 0 / 20%) 0px 60px 40px -7px;
+  transition: background-color ease-in 5s, color ease-in 4s;
+}
+
+.userAlertAdvice::after {
+  content: "New user created!";  
+  font-size: 26px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

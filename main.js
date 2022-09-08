@@ -3,23 +3,50 @@
  * Save tileList in local storage ✅
  * Improve styles on card and menus
  * Go further on tiles CRUD
- * Improve categories view
+ * Improve categories view ✅
  * 
  * 08/16 
  * Migrate delete cat method to delBtn category trash button ✅
  * validate duplicated inputs on create modes (tiles and categories)
- * Create an interesting designed element when on hover show Tiles props // https://atomiks.github.io/tippyjs/v6/html-content/
+ * Create an interesting designed element when on :hover shows Tiles props // https://atomiks.github.io/tippyjs/v6/html-content/
  * 
  * 08/19
  * Give action over trash button on categories ✅
  * Manage to remove tile form tilesContainer when deleted
- * Find a better way to render tiles
- * Create feature to group tiles by category
+ * Spike and research a better way to render tiles
+ * Feature: to group tiles by category
  */
 
 /**
  * HELPERS
  */
+ class User {
+    constructor(userName, userEmail, userPassword) {
+    this.userName = userName;
+    this.userEmail = userEmail;
+    this.userPassword = userPassword;
+    }   
+  
+    consoleUser() {
+      console.log(`User Name: ${this.userName}`);
+      console.log(`User Email: ${this.userEmail}`);
+      console.log(`User Password: ${this.userPassword}`);
+    }
+
+    newUserAlert() {
+        const userAlertEl = document.createElement('div');
+        userAlertEl.setAttribute('id', 'userAlert');
+        userAlertEl.classList.add('userAlertAdvice')
+        const root = document.getElementById('root')
+        root.appendChild(userAlertEl);
+    }
+
+  }
+
+console.log(User);
+
+
+
  const removeItemFromArr = (arr, item) => {
     let i = arr.indexOf(item);
     i !== -1 && arr.splice(i, 1);
@@ -135,6 +162,44 @@ root.appendChild(catMenu);
      .render("Create Tile");
  
  root.appendChild(tilesMenu);
+
+
+
+/**
+ * CREATE PROFILE
+ */
+ const header = document.querySelector('.header')
+ const profileBtn = document.getElementById('profileBtn');
+ profileBtn.addEventListener('click', () => {
+
+    renderEngine(root)
+    .to("dialog", "id", "createProfileDialog")
+    .render(
+        `
+        <input type="text" id="createProfileInputName" placeholder="Name">
+        <input type="text" id="createProfileInputEmail" placeholder="Email">
+        <input type="text" id="createProfileInputPassword" placeholder="Password">
+        <button id="createProfileBtnDialog">Ok</button>
+        <button id="cancelCreateProfileBtn">Cancel</button>
+        `
+    );
+        let createProfileDialog = document.getElementById("createProfileDialog")
+        handleCancelBtn('cancelCreateProfileBtn', createProfileDialog)
+        createProfileDialog.showModal();
+
+        const createProfileBtnDialog = document.getElementById('createProfileBtnDialog');
+
+        createProfileBtnDialog.addEventListener("click", () => {
+            let newName = document.getElementById('createProfileInputName').value;
+            let newEmail = document.getElementById('createProfileInputEmail').value;
+            let newPassword = document.getElementById('createProfileInputPassword').value;
+            let newUser = new User(newName, newEmail, newPassword)
+            newUser.consoleUser();
+            newUser.newUserAlert();
+            createProfileDialog.close();
+            root.removeChild(createProfileDialog)
+        })
+ })
 
 /**
  * CREATE CATEGORY
